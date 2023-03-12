@@ -14,4 +14,9 @@ describe("Tests de vista Principal", () => {
     render(<Principal />)
     expect(screen.getByPlaceholderText("Filter podcasts...")).toBeInTheDocument()
   })
+  test("Debe mostrar el listado de los podcasts", async () => {
+    await render(<Principal />)
+    const podcasts = screen.getAllByRole("article")
+    expect(podcasts.length).toBe(100)
+  })
 })
