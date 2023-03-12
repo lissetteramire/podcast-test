@@ -1,5 +1,11 @@
+import Principal from "./Components/Principal"
+
 function App() {
-  return <div className="App"></div>
+  return (
+    <div className="App">
+      <Principal />
+    </div>
+  )
 }
 
 export default App

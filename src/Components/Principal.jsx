@@ -2,7 +2,11 @@
 import { useState, useEffect, useMemo } from "react"
 
 const podcastsData = Array.from({ length: 100 }, (_, index) => ({
-  title: { label: `Podcast ${index + 1}` }
+  title: { label: `Podcast ${index + 1}` },
+  "im:artist": { label: `Artist ${index + 1}` },
+  "im:image": [{ label: `https://is3-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/55x55bb.png` }],
+  summary: { label: `Summary ${index + 1}` },
+  id: { label: `Podcast ${index + 1}`, attributes: { "im:id": index + 1 } }
 }))
 
 const Principal = () => {
@@ -19,7 +23,7 @@ const Principal = () => {
 
   const podcastsFiltrados = useMemo(() => {
     return podcasts.filter(podcast => {
-      return podcast.title.label.toLowerCase().includes(filtro.toLowerCase())
+      return podcast.title.label.toLowerCase().includes(filtro.toLowerCase()) || podcast["im:artist"].label.toLowerCase().includes(filtro.toLowerCase())
     })
   }, [podcasts, filtro])
 
@@ -37,8 +41,10 @@ const Principal = () => {
       </header>
       <main className="contenedor-podcasts">
         {podcastsFiltrados.map((podcast, index) => (
-          <article key={index}>
+          <article key={podcast.id.attributes["im:id"]}>
             <h2>{podcast.title.label}</h2>
+            <p>Artist: {podcast["im:artist"].label}</p>
+            <img src={podcast["im:image"][0].label} alt={podcast.title.label} />
           </article>
         ))}
       </main>
